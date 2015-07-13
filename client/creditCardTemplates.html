@@ -1,2 +1,14 @@
-<template name="marketCreditCardsManage">
+<template name="marketplaceCreditCardsSelect">
+  {{> quickForm schema=addCardSchema id="market_addCard" type="normal"}}
+  {{#if customerReady}}
+    {{> _marketplaceNewCardForm}}
+    {{#each customer.sources.data}}
+      Card
+    {{/each}}
+  {{else}}
+    {{> spinner}}
+  {{/if}}
+</template>
+
+<template name="_marketplaceNewCardForm">
 </template>

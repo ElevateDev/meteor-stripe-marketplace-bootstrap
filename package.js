@@ -10,8 +10,11 @@ Package.on_use(function (api) {
 	
   api.use([
     'elevatedevdesign:stripe-marketplace@0.0.1-rc.1',
+    'elevatedevdesign:autoform-jquery-payments@0.0.5',
+    'aldeed:autoform@5.3.2',
     'templating',
     'ui',
+    'sacha:spin'
   ]);
   
   api.add_files([
