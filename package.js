@@ -14,12 +14,13 @@ Package.on_use(function (api) {
     'aldeed:autoform@5.3.2',
     'templating',
     'ui',
-    'sacha:spin'
+    'reactive-var'
   ]);
   
   api.add_files([
       'client/creditCardTemplates.html',
       'client/creditCardTemplates.js',
+      'client/creditCardTemplates.css',
     ],
     ['client']
   );

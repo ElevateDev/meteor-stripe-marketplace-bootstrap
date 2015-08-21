@@ -1,14 +1,60 @@
 <template name="marketplaceCreditCardsSelect">
-  {{> quickForm schema=addCardSchema id="market_addCard" type="normal"}}
-  {{#if customerReady}}
-    {{> _marketplaceNewCardForm}}
-    {{#each customer.sources.data}}
-      Card
-    {{/each}}
-  {{else}}
-    {{> spinner}}
-  {{/if}}
-</template>
-
-<template name="_marketplaceNewCardForm">
+  <div class="market-card-select row">
+    <div class="col-md-9 col-sm-12">
+      <div class="card-select-well well">
+        <div class="row card-select-header">
+          <div class="col-xs-1"></div>
+          <div class="col-xs-7 text-default">
+            Saved Cards
+          </div>
+          <div class="col-xs-2 text-muted">
+            Name
+          </div>
+          <div class="col-xs-2 text-muted">
+            Expiration
+          </div>
+        </div>
+        <div class="cards">
+          {{#each customer.sources.data}}
+            <div id="{{id}}" class="row card-line-item {{selected id}}" href="#">
+              <div class="col-xs-1">
+                <div class="card-selected-indicator"></div>
+              </div>
+              <div class="col-xs-7">
+                <strong>{{brand}}</strong>
+                <span class="text-muted"> ending in </span>
+                {{last4}}
+              </div>
+              <div class="col-xs-2">
+                {{name}}
+              </div>
+              <div class="col-xs-2">
+                {{formatted_exp_month}} / {{exp_year}}
+              </div>
+            </div>
+          {{/each}}
+        </div>
+        <div class="card-select-footer row">
+          <div class="col-md-10 col-xs-12 text-danger">
+            {{error}}
+          </div>
+          {{#if addingCard}}
+            <div class="add-card-form">
+              <legend>Add a card</legend>
+              {{> quickForm schema=addCardSchema id="market_addCard" type="normal"}}
+            </div>
+          {{else}}
+            <div class="col-md-2 col-xs-12">
+              <a class="btn btn-primary add-card-btn" href="#" name="add-card"><span class="add-card-btn-text">Add Card</span></a>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-12">
+      <div class="well continue-checkout-well">
+        <a class="btn btn-primary continue-checkout" name="continue-checkout" href="#"><span class="continue-checkout-btn-text">Continue Checkout</span></a>
+      </div>
+    </div>
+  </div> 
 </template>
