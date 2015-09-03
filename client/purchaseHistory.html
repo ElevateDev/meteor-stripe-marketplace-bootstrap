@@ -1,0 +1,27 @@
+<template name="marketplacePurchaseHistory">  
+  <h2>Purchase History</h2>
+  <div class="list-group">
+    <div class="list-group-item">
+      <div class="row list-group-heading">
+        <div class="col-xs-6">
+          <h4>Date</h4>
+        </div>
+        <div class="col-xs-6">
+          <h4>Amount</h4>
+        </div>
+      </div>
+    </div>
+    {{#each purchases}}
+      <div class="list-group-item">
+        <div class="row">
+          <div class="col-xs-6">
+            {{formatDate createdAt}}
+          </div>
+          <div class="col-xs-6">
+            {{formatMoney total}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</template>

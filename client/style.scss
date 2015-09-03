@@ -1,0 +1,48 @@
+.market-bootstrap{
+  .well{
+    background-color: white;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .list-header{
+    border-bottom: 1px solid gray;
+    padding-bottom: 12px;
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+ 
+
+  .line-item{
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E6E6E6;
+    cursor: pointer;
+  }
+
+  .line-item.active .selected-indicator::before{
+    content: "\f00c";
+    font-family: FontAwesome;
+    height: 100%;
+    width: 20px;
+    border-radius: 5px;
+    color: white;
+    background-color: gray;
+    padding: 3px;
+  }
+
+  .line-item:hover{
+    background-color: #FBFBFB;
+  }
+
+
+  .list-footer{
+    margin-top: 10px;
+  }
+
+  form{
+    margin-top: 30px;
+  }
+}

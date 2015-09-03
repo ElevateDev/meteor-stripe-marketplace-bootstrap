@@ -1,24 +1,34 @@
+// variable's for
+//  adding card
+//  selected card
+//
+
+
 var addingCard = new ReactiveVar();
 var selectedCard = new ReactiveVar();
 var selectedInitialized;
 var error = new ReactiveVar();
 
 Template.marketplaceCreditCardsSelect.created = function(){
-  Market._fetchCustomer();
   addingCard.set( false );
-  selectedInitialized = false;
   error.set();
-};
-
-Template.marketplaceCreditCardsSelect.rendered = function(){
-  this.autorun(function(){
+  Market._fetchCustomer(function(){
     var customer = Market.customer();
-    if( !selectedInitialized && Market.customer() ){
-      selectedInitialized = true;
-      selectedCard.set( customer.default_source );
-    }
+    selectedCard.set( customer.default_source );
   });
 };
+
+Template.marketplaceCreditCardsSelect.onRendered(function(){
+  var errFunc = function(){
+    if( !selectedCard.get() ){
+      error.set("Please select a credit card for payment");
+      return true;
+    }else{
+      error.set();
+    }
+  }
+  this.data.register( errFunc );
+});
 
 Template.marketplaceCreditCardsSelect.helpers({
   customer: function(){
@@ -28,7 +38,7 @@ Template.marketplaceCreditCardsSelect.helpers({
     return Market.customerReady();
   },
   addCardSchema: function(){
-    return Market.creditCardSchema;
+    return Market.schemas.creditCard;
   },
   addingCard: function(){
     return addingCard.get();
@@ -48,7 +58,7 @@ Template.marketplaceCreditCardsSelect.events({
   'click *[name="add-card"]': function(){
     addingCard.set( true );
   },
-  'click .card-line-item': function(e){
+  'click *[name="select-card"]': function(e){
     selectedCard.set( e.currentTarget.id );
     error.set();
   },
@@ -67,7 +77,7 @@ Template.marketplaceCreditCardsSelect.events({
 });
 
 AutoForm.hooks({
-  'market_addCard': {
+  'add-card-form': {
     onSubmit: function(card){
       this.event.preventDefault();
       exp = card.expiry.split('/');
@@ -77,14 +87,15 @@ AutoForm.hooks({
       Market._stripe.token.create({
         card: card
       },function(err,doc){
-        Meteor.call('marketplace/customer/createSource',doc.id,function(err,doc){
-          Market._fetchCustomer();      
-          addingCard.set( false );
-          if( !err ){ 
-            Market.customer().sources.data.push( doc );
-            selectedCard.set(doc.id);
-            error.set();
-          }
+        Meteor.call('market/customer/createSource',doc.id,function(err,doc){
+          Market._fetchCustomer(function(){
+            addingCard.set( false );
+            if( !err ){ 
+              Market.customer().sources.data.push( doc );
+              selectedCard.set(doc.id);
+              error.set();
+            }
+          });      
         });
       });
     }
