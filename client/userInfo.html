@@ -1,0 +1,14 @@
+<template name="marketplaceUserInfo">
+  {{#if Template.subscriptionsReady}}
+    {{#autoForm collection=collection id="user-info" type=action doc=editDoc}}
+      <fieldset>
+        <legend>User Info</legend>
+        {{>afQuickField name='country' readonly=true}}
+        {{>afQuickField name='first_name'}}
+        {{>afQuickField name='last_name'}}
+        {{>afQuickField name='dob'}}
+      </fieldset>
+      <button type="submit" class="btn btn-primary">{{submitLabel}}</button>
+    {{/autoForm}}
+  {{/if}}
+</template>
