@@ -63,9 +63,9 @@ Template.marketplaceCreditCardsSelect.events({
     error.set();
   },
   'click *[name="continue-checkout"]': function(e,template){
-    if( Market.customer() && 
+    if( Market.customer() &&
         Market.customer().sources &&
-        Market.customer().sources.data && 
+        Market.customer().sources.data &&
         Market.customer().sources.data.length === 0 ){
       error.set( "Please add a payment source" );
     }else if( !selectedCard.get() ){
@@ -89,13 +89,16 @@ AutoForm.hooks({
       },function(err,doc){
         Meteor.call('market/customer/createSource',doc.id,function(err,doc){
           Market._fetchCustomer(function(){
-            addingCard.set( false );
-            if( !err ){ 
+            if( !err ){
+              addingCard.set( false );
               Market.customer().sources.data.push( doc );
               selectedCard.set(doc.id);
               error.set();
+            }else{
+              console.log( err )
+              error.set(err.reason)
             }
-          });      
+          });
         });
       });
     }

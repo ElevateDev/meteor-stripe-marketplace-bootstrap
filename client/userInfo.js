@@ -27,3 +27,10 @@ Template.marketplaceUserInfo.helpers({
     return Market.userInfo;
   }
 });
+
+
+AutoForm.addHooks('user-info',{
+  onSuccess: () => {
+    Meteor.call('market/accounts/acceptTOS')
+  }
+})

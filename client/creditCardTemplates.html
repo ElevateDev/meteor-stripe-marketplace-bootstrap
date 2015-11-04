@@ -32,12 +32,14 @@
         </div>
       {{/each}}
       <div class="list-footer row">
-        <div class="col-xs-12 text-danger">
-          {{error}}
-        </div>
         {{#if addingCard}}
           <div class="add-card-form col-xs-12">
             <legend>Add a card</legend>
+            {{#if error}}
+              <div class="col-xs-12 alert alert-danger">
+                {{error}}
+              </div>
+            {{/if}}
             {{> quickForm schema=addCardSchema id="add-card-form" type="normal"}}
           </div>
         {{else}}

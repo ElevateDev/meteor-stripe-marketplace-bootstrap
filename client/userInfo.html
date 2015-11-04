@@ -1,14 +1,22 @@
 <template name="marketplaceUserInfo">
   {{#if Template.subscriptionsReady}}
     {{#autoForm collection=collection id="user-info" type=action doc=editDoc}}
+      <p>We need some information about you to setup your stripe account and to
+      start accepting payments for you.</p>
       <fieldset>
-        <legend>User Info</legend>
         {{>afQuickField name='country' readonly=true}}
         {{>afQuickField name='first_name'}}
         {{>afQuickField name='last_name'}}
         {{>afQuickField name='dob'}}
       </fieldset>
-      <button type="submit" class="btn btn-primary">{{submitLabel}}</button>
+      <br>
+      <p class='text-muted'>
+        By submitting, you agree to the&nbsp;
+        <a target="_blank"
+          href="https://stripe.com/connect/account-terms">Stripe Connected
+          Account Agreement</a>.
+      </p>
+      <button type="submit" class="btn btn-primary">Submit</button>
     {{/autoForm}}
   {{/if}}
 </template>
