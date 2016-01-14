@@ -1,7 +1,7 @@
 Package.describe({
   summary: 'Stripe marketplace bootstrap templates.',
   name: 'jimmiebtlr:stripe-marketplace-bootstrap',
-  version: '0.0.1-rc.1',
+  version: '0.0.2-rc.1',
   git: 'https://github.com/elevatedevdesign/' +
        'meteor-stripe-marketplace-bootstrap.git'
 });
@@ -18,6 +18,7 @@ Package.onUse(function(api) {
     'underscore',
     'reactive-var',
     'lepozepo:accounting@1.0.0',
+    'ecmascript@0.1.6',
     'fourseven:scss@3.2.0'
   ]);
 
